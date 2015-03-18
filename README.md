@@ -1,6 +1,8 @@
 # 2d-pixelshadows
 2D per pixel shadow maps for Unity 3D. 
 
+Requires Unity 5 Personal or Unity 4 Pro
+
 Video
 https://youtu.be/PBBCJHrNH-o?list=UUTWE3nSIKgIlWxsAXj2dzrw
 
