@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 46ca2bc0d213e40caa92a8117e736a34
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - lightDistanceShader: {fileID: 4800000, guid: 7619dc64791c8422eb6090776b30dd46,
+      type: 3}
+  - _lightmesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  - _lightMaterial: {fileID: 2100000, guid: 485ff7fa925e64684afe937b69cdc915, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
