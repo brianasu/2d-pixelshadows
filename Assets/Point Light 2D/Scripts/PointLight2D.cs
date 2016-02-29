@@ -35,11 +35,15 @@ public class PointLight2D : MonoBehaviour
 	[SerializeField]
 	[Header("Only in edit mode")]
 	AnimationCurve fallOffCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
-	[SerializeField]
-	Color shadowColor = Color.black;
+
 	[SerializeField]
 	[Header("Don't multiply shadow alpha by light gradient")]
 	bool solidShadow = false;
+	[Space(20)]
+	[SerializeField]
+	Color gradientTint = Color.white;
+	[SerializeField]
+	Color shadowColor = Color.black;
 
 	[Header("This will have a large effect on performance")]
 	[SerializeField]
@@ -137,11 +141,16 @@ public class PointLight2D : MonoBehaviour
 				_texTarget = new RenderTexture (shadowMapSize, shadowMapSize, 0, RenderTextureFormat.Default);
 				_texTarget.wrapMode = TextureWrapMode.Clamp;
 				_texTarget.hideFlags = HideFlags.DontSave;
-
 				PropertyBlock.SetTexture("_MainTex", _texTarget);
 			}
 			return _texTarget;
 		}
+	}
+
+	public Color GradientTint
+	{
+		set { gradientTint = value; }
+		get { return gradientTint; }
 	}
 
 	void DestroySafe(UnityEngine.Object obj)
@@ -195,9 +204,8 @@ public class PointLight2D : MonoBehaviour
 		if(OutputTexture.width != shadowMapSize)
 		{
 			DestroySafe(_texTarget);
-
-			PropertyBlock.SetTexture("_MainTex", OutputTexture);
 		}
+		PropertyBlock.SetTexture("_MainTex", OutputTexture);
 
 		var shadowMap = PushRenderTexture(shadowMapSize, shadowMapSize);
 		ShadowCamera.targetTexture = shadowMap;
@@ -227,7 +235,7 @@ public class PointLight2D : MonoBehaviour
 		ShadowMaterial.SetFloat ("_BlurSize", blurSize * ((float)shadowMapSize / 512));
 		ShadowMaterial.SetFloat ("_ShadowOffset", shadowBias);
 		ShadowMaterial.SetColor ("_ShadowColor", shadowColor);
-
+		ShadowMaterial.SetColor ("_ColorTint", gradientTint);
 
 		// Calculate the distance between the light and  centre
 		var texLightDistance = PushRenderTexture (shadowMapSize, shadowMapSize);

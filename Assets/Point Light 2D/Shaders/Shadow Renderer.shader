@@ -142,6 +142,7 @@ Shader "Custom/Shadow/Distance" {
 		return tex2D(_MainTex, newCoords).g;
 	}
 
+	fixed4 _ColorTint;
 	fixed4 _ShadowColor;
 	float _FOV;
 	fixed4 fragShadow(v2f i) : COLOR
@@ -164,7 +165,7 @@ Shader "Custom/Shadow/Distance" {
 		fixed light = step(distance, shadowMapDistance);
 
 
-		fixed4 col = tex2D(_FallOffTex, half2(distance * 2, 0.5));
+		fixed4 col = tex2D(_FallOffTex, half2(distance * 2, 0.5)) * _ColorTint;
 
 		fixed cp = step(distance, 0.5);
 
@@ -176,8 +177,6 @@ Shader "Custom/Shadow/Distance" {
 		#endif
 
 		col *= cp;
-
-
 
 		return lerp(shadowColor, col, light);
 	}

@@ -250,35 +250,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
---- !u!28 &543599839
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  serializedVersion: 2
-  m_Width: 128
-  m_Height: 1
-  m_CompleteImageSize: 1020
-  m_TextureFormat: 5
-  m_MipCount: 8
-  m_IsReadable: 1
-  m_ReadAllowed: 1
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapMode: 1
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  image data: 1020
-  _typelessdata: ff20e3ffff22e3fbff25e3f7ff28e4f2ff2be4eeff2ee5e9ff30e5e5ff33e6e1ff36e6dcff39e7d8ff3ce7d3ff3fe8cfff41e8cbff45e9c6ff47e9c2ff4beabdff4deab9ff50ebb4ff53ebb0ff56ecacff59eca7ff5ceda3ff5fed9eff61ee9aff64ee96ff67ef91ff6aef8dff6df088ff70f084ff73f17fff76f17bff78f177ff7bf272ff7ef26eff81f369ff84f365ff87f461ff8af45cff8cf558ff90f553ff92f64fff96f64aff98f746ff9bf742ff9ef83dffa1f839ffa4f934ffa7f930ffa9fa2cffacfa27ffaffb23ffb2fb1effb5fc1affb8fc15ffbbfd11ffbdfd0dffc1fe08ffc3fe04ffc7ff00ffc7fc01ffc8f802ffc8f403ffc9f104ffcaee06ffcaea07ffcbe708ffcbe309ffcce00bffcddd0cffcdd90dffced60effced30fffcfcf11ffd0cc12ffd0c813ffd1c514ffd2c216ffd2be17ffd3bb18ffd3b819ffd4b41bffd5b01cffd5ad1dffd6aa1effd7a620ffd7a321ffd8a022ffd89c23ffd99924ffda9526ffda9227ffdb8f28ffdb8b29ffdc872bffdd852cffdd812dffde7d2fffdf7a30ffdf7731ffe07332ffe07033ffe16c35ffe26936ffe26637ffe36238ffe45f3affe45c3bffe5583cffe5553dffe6513effe74e40ffe74b41ffe84742ffe94444ffdb4e50ffce595cffc06369ffb36e75ffa67882ff98838eff8b8d9aff7e98a7ff70a3b3ff63adc0ff56b8ccff48c2d9ff3bcde5ff2ed7f1ff21e3fdff26e3f4ff2ce4ebff31e5e3ff37e6daff3de7d1ff43e8c8ff49e9bfff4eeab6ff54ebaeff5aeca5ff60ed9cff65ee93ff6bef8aff71f081ff77f179ff7cf270ff82f367ff88f45eff8ef555ff94f64cff99f744ff9ff83bffa5f932ffaafa29ffb0fb20ffb6fc17ffbcfd0fffc2fe06ffc7fd00ffc8f602ffc9ef05ffcae807ffcbe10affcddb0cffced40effcfcd11ffd0c613ffd2c016ffd3b918ffd4b21bffd5ab1dffd7a420ffd89e22ffd99725ffda9027ffdb892affdd832cffde7b2fffdf7531ffe06e34ffe26736ffe36039ffe45a3bffe5533dffe74c40ffe84543ffd45356ffb9686fff9f7d88ff8492a0ff69a8b9ff4fbdd2ff34d2ebff23e3f8ff2ee4e7ff3ae6d5ff46e8c3ff51eab2ff5deca0ff68ee8eff74f07dff7ff26bff8bf459ff96f648ffa2f836ffadfa24ffb9fc13ffc4fd03ffc8f203ffcae408ffcdd70dffcfc912ffd2bc17ffd4ae1cffd7a121ffd99326ffdc862bffde7830ffe16a35ffe35d3affe64f3effde4c4cffac727bff769dacff41c7deff28e3efff40e7ccff57eba9ff6eef85ff85f362ff9cf73fffb3fb1bffc6f703ffcbdd0affd0c214ffd5a71effda8c28ffdf7132ffe4563cffc55f63ff5bb2c5ff34e5ddff62ed97ff90f550ffbcf90fffcdcf0fffd79923ffe16337ff908894ff4be9baffa6f72fffd2b419ffb87565ff78f074ffc5943fff9ec259
 --- !u!1 &557929263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,8 +1596,9 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  shadowColor: {r: 0, g: 0, b: 0, a: 1}
   solidShadow: 0
+  gradientTint: {r: 1, g: 1, b: 1, a: 1}
+  shadowColor: {r: 0, g: 0, b: 0, a: 1}
   shadowMapSize: 256
   highQualityPenumbras: 0
   _lightmesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
@@ -1713,10 +1685,10 @@ MonoBehaviour:
   lightGradient:
     key0:
       serializedVersion: 2
-      rgba: 4294959904
+      rgba: 4294967295
     key1:
       serializedVersion: 2
-      rgba: 4278255559
+      rgba: 4294967295
     key2:
       serializedVersion: 2
       rgba: 4474089
@@ -1736,7 +1708,7 @@ MonoBehaviour:
       serializedVersion: 2
       rgba: 0
     ctime0: 0
-    ctime1: 29684
+    ctime1: 65535
     ctime2: 57825
     ctime3: 65535
     ctime4: 0
@@ -1745,13 +1717,13 @@ MonoBehaviour:
     ctime7: 0
     atime0: 0
     atime1: 65535
-    atime2: 0
-    atime3: 0
+    atime2: 65535
+    atime3: 65535
     atime4: 0
     atime5: 0
     atime6: 0
     atime7: 0
-    m_NumColorKeys: 4
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   fallOffCurve:
     serializedVersion: 2
@@ -1768,13 +1740,14 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  shadowColor: {r: 0, g: 0, b: 0, a: 1}
   solidShadow: 1
+  gradientTint: {r: 1, g: 1, b: 1, a: 1}
+  shadowColor: {r: 0, g: 0, b: 0, a: 1}
   shadowMapSize: 256
   highQualityPenumbras: 0
   _lightmesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-  _lightMaterial: {fileID: 2100000, guid: 485ff7fa925e64684afe937b69cdc915, type: 2}
-  _fallOffTexture: {fileID: 543599839}
+  _lightMaterial: {fileID: 2100000, guid: 021f1d34f10f04b75b75d39950a09216, type: 2}
+  _fallOffTexture: {fileID: 1225894749}
 --- !u!4 &1080530034
 Transform:
   m_ObjectHideFlags: 0
@@ -1782,7 +1755,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1080530031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.28000021, y: .889999986, z: 0}
+  m_LocalPosition: {x: -6.4000001, y: 1.75999999, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1862,6 +1835,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!28 &1225894749
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  serializedVersion: 2
+  m_Width: 128
+  m_Height: 1
+  m_CompleteImageSize: 1020
+  m_TextureFormat: 5
+  m_MipCount: 8
+  m_IsReadable: 1
+  m_ReadAllowed: 1
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapMode: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  image data: 1020
+  _typelessdata: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!1 &1474391338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2090,8 +2092,9 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  shadowColor: {r: 0, g: 0, b: 0, a: 1}
   solidShadow: 1
+  gradientTint: {r: 1, g: 1, b: 1, a: 1}
+  shadowColor: {r: 0, g: 0, b: 0, a: 1}
   shadowMapSize: 256
   highQualityPenumbras: 0
   _lightmesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
