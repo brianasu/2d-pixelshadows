@@ -142,6 +142,7 @@ Shader "Custom/Shadow/Distance" {
 		return tex2D(_MainTex, newCoords).g;
 	}
 
+	fixed4 _ShadowColor;
 	float _FOV;
 	fixed4 fragShadow(v2f i) : COLOR
 	{
@@ -161,7 +162,24 @@ Shader "Custom/Shadow/Distance" {
 			step(nX, nY));
 			
 		fixed light = step(distance, shadowMapDistance);
-		return light * tex2D(_FallOffTex, half2(distance * 2, 0.5));
+
+
+		fixed4 col = tex2D(_FallOffTex, half2(distance * 2, 0.5));
+
+		fixed cp = step(distance, 0.5);
+
+		fixed4 shadowColor = _ShadowColor;
+		#if SOLID_SHADOW
+		shadowColor.a *= cp;
+		#else
+		shadowColor.a *= col.a * cp;
+		#endif
+
+		col *= cp;
+
+
+
+		return lerp(shadowColor, col, light);
 	}
 	
 	struct v2fBlur
@@ -283,6 +301,7 @@ Subshader {
 		Fog { Mode off }
 
 		CGPROGRAM
+		#pragma multi_compile _ SOLID_SHADOW
 		#pragma vertex vertQuadrant
 		#pragma fragment fragShadow
 		ENDCG
@@ -294,7 +313,7 @@ Subshader {
 		Fog { Mode off }
 
 		CGPROGRAM
-		#pragma multi_compile ULTRA_QUALITY NORMAL_QUALITY
+		#pragma multi_compile _ ULTRA_QUALITY
 		#pragma vertex vertBlurHorz
 		#pragma fragment fragBlur
 		ENDCG
@@ -306,7 +325,7 @@ Subshader {
 		Fog { Mode off }
 
 		CGPROGRAM
-		#pragma multi_compile ULTRA_QUALITY NORMAL_QUALITY
+		#pragma multi_compile _ ULTRA_QUALITY
 		#pragma vertex vertBlurVert
 		#pragma fragment fragBlur
 		ENDCG

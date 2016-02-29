@@ -35,6 +35,11 @@ public class PointLight2D : MonoBehaviour
 	[SerializeField]
 	[Header("Only in edit mode")]
 	AnimationCurve fallOffCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
+	[SerializeField]
+	Color shadowColor = Color.black;
+	[SerializeField]
+	[Header("Don't multiply shadow alpha by light gradient")]
+	bool solidShadow = false;
 
 	[Header("This will have a large effect on performance")]
 	[SerializeField]
@@ -54,10 +59,12 @@ public class PointLight2D : MonoBehaviour
 	//
 	RenderTexture _texTarget;
 	List<RenderTexture> _tempRenderTextures = new List<RenderTexture> ();
-	Material _materialInstance;
 	Material _materialShadow;
 	Camera _shadowCamera;
+
+	[HideInInspector][SerializeField]
 	Texture2D _fallOffTexture;
+	MaterialPropertyBlock _propertyBlock;
 
 	Camera ShadowCamera
 	{
@@ -94,21 +101,7 @@ public class PointLight2D : MonoBehaviour
 			return _materialShadow;
 		}
 	}
-
-	Material MaterialCopy
-	{
-		get
-		{
-			if(_materialInstance == null)
-			{
-				_materialInstance = Instantiate(_lightMaterial) as Material;
-				_materialInstance.hideFlags = HideFlags.DontSave;
-
-			}
-			return _materialInstance;
-		}
-	}
-
+		
 	Texture2D FallOffTexture
 	{
 		get
@@ -117,9 +110,21 @@ public class PointLight2D : MonoBehaviour
 			{
 				_fallOffTexture = new Texture2D(128, 1);
 				_fallOffTexture.wrapMode = TextureWrapMode.Clamp;
-				_fallOffTexture.hideFlags = HideFlags.DontSave;
 			}
 			return _fallOffTexture;
+		}
+	}
+
+
+	MaterialPropertyBlock PropertyBlock
+	{
+		get
+		{
+			if (_propertyBlock == null)
+			{
+				_propertyBlock = new MaterialPropertyBlock();
+			}
+			return _propertyBlock;
 		}
 	}
 
@@ -132,7 +137,8 @@ public class PointLight2D : MonoBehaviour
 				_texTarget = new RenderTexture (shadowMapSize, shadowMapSize, 0, RenderTextureFormat.Default);
 				_texTarget.wrapMode = TextureWrapMode.Clamp;
 				_texTarget.hideFlags = HideFlags.DontSave;
-				MaterialCopy.SetTexture("_MainTex", _texTarget);
+
+				PropertyBlock.SetTexture("_MainTex", _texTarget);
 			}
 			return _texTarget;
 		}
@@ -173,13 +179,12 @@ public class PointLight2D : MonoBehaviour
 		DestroySafe (_texTarget);
 		DestroySafe (_fallOffTexture);
 		DestroySafe (_materialShadow);
-		DestroySafe (_materialInstance);
 		ReleaseAllRenderTextures ();
 	}
 
 	void Update()
 	{
-		if(Application.isEditor)
+		if(Application.isEditor && !Application.isPlaying)
 		{
 			RegenerateCurve();
 		}
@@ -190,28 +195,39 @@ public class PointLight2D : MonoBehaviour
 		if(OutputTexture.width != shadowMapSize)
 		{
 			DestroySafe(_texTarget);
-			MaterialCopy.SetTexture("_MainTex", OutputTexture);
+
+			PropertyBlock.SetTexture("_MainTex", OutputTexture);
 		}
 
 		var shadowMap = PushRenderTexture(shadowMapSize, shadowMapSize);
 		ShadowCamera.targetTexture = shadowMap;
 		ShadowCamera.rect = new Rect (0, 0, 1, 1);
 		ShadowCamera.Render ();
+		ShadowCamera.targetTexture = null;
 
 		if(highQualityPenumbras)
 		{
 			ShadowMaterial.EnableKeyword("ULTRA_QUALITY");
-			ShadowMaterial.DisableKeyword("NORMAL_QUALITY");
 		}
 		else
 		{
-			ShadowMaterial .EnableKeyword("NORMAL_QUALITY");
-			ShadowMaterial .DisableKeyword("ULTRA_QUALITY");
+			ShadowMaterial.DisableKeyword("ULTRA_QUALITY");
+		}
+
+		if (solidShadow)
+		{
+			ShadowMaterial.EnableKeyword("SOLID_SHADOW");
+		}
+		else
+		{
+			ShadowMaterial.DisableKeyword("SOLID_SHADOW");
 		}
 
 		ShadowMaterial.SetTexture ("_FallOffTex", _fallOffTexture);
 		ShadowMaterial.SetFloat ("_BlurSize", blurSize * ((float)shadowMapSize / 512));
 		ShadowMaterial.SetFloat ("_ShadowOffset", shadowBias);
+		ShadowMaterial.SetColor ("_ShadowColor", shadowColor);
+
 
 		// Calculate the distance between the light and  centre
 		var texLightDistance = PushRenderTexture (shadowMapSize, shadowMapSize);
@@ -249,7 +265,7 @@ public class PointLight2D : MonoBehaviour
 
 		ReleaseAllRenderTextures ();
 		transform.localScale = Vector3.one * _shadowCamera.orthographicSize * 2;
-		Graphics.DrawMesh(_lightmesh, transform.localToWorldMatrix, _materialInstance, gameObject.layer);
+		Graphics.DrawMesh(_lightmesh, transform.localToWorldMatrix, _lightMaterial, gameObject.layer, null, 0, PropertyBlock);
 	}
 
 	RenderTexture PushRenderTexture (int width, int height, int depth = 0, RenderTextureFormat format = RenderTextureFormat.Default)
